@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Blog Home - Start Bootstrap Template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+    <style type="text/css">
+        body {
+            padding-top: 70px;
+        }
+
+        footer {
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+{% extends 'header.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="page-header">
+                    Home Page
+                    <small>Lastest Post</small>
+                </h1>
+                {% for post in posts %}
+                    <h2>
+                        <a href="{% url 'post' post.post_cat_id post.id %}">{{ post.post_title }}</a>
+                        <small style="float:right">{{ post.post_cat }}</small>
+                    </h2>
+                    <p class="lead">
+                        by <a href="{% url 'profile' post.post_author_id %}">{{ post.post_author }}</a>
+                    </p>
+                    <p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.post_updatedAd }}</p>
+
+                    <p>{{ post.post_content|slice:":300" }}...</p>
+                    <a class="btn btn-primary" href="{% url 'post' post.post_cat_id post.id %}">Read More <span
+                            class="glyphicon glyphicon-chevron-right"></span></a>
+                    <hr>
+                {% endfor %}
+            </div>
+            <div class="col-md-4">
+
+                <div class="well">
+                    <h4>Blog Categories</h4>
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <ul class="list-group">
+                                {% if categories == None %}
+                                    No Post. Be the first to add.
+                                {% else %}
+                                    {% for category in categories %}
+                                        <li class="list-group-item">
+                                            <span class="badge">{{ category.post_set.count }}</span>
+                                            <a href="{% url 'category' category.id %}">{{ category.cat_title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Blog Task</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+{% endblock %}
+</body>
+</html>

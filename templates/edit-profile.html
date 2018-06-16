@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Blog Home - Start Bootstrap Template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"/>
+    <style type="text/css">
+        body {
+            padding-top: 70px;
+        }
+
+        footer {
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+{% extends 'header.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">Edit {{ user.username }} profile</div>
+                    <div class="panel-body">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <table>
+                                {% if edit_form_error %}
+                                    <tr style="padding-bottom: 2px;">
+                                        <td>{{ edit_form_error }}</td>
+                                    </tr>
+                                {% endif %}
+                                <tr style="padding-bottom: 2px;">
+                                    <td><label for="username">Username :</label></td>
+                                    <td>{{ edit_form.username }}</td>
+                                    <td><span style="color: #777; margin-left: 5px;">{{ user.username }}</span></td>
+                                </tr>
+                                <tr style="padding-bottom: 2px;">
+                                    <td><label for="email">Email</label></td>
+                                    <td>{{ edit_form.email }}</td>
+                                    <td><span style="color: #777; margin-left: 5px;">{{ user.email }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><input type="submit" value="Save" style="float:right"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <footer>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p>Blog Task</p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>
